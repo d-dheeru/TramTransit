@@ -1,4 +1,4 @@
-package com.venkat.tramtransit
+package com.example.devtransportationapp
 
 import org.junit.Test
 
