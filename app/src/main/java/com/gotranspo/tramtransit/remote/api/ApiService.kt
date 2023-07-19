@@ -1,11 +1,10 @@
-package com.example.devtransportationapp.api
+package com.gotranspo.tramtransit.remote.api
 
 import com.example.devtransportationapp.model.directions.DirectionsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 
-interface ApiInterface {
+interface ApiService {
     @GET("directions/json")
     suspend fun getDirections(
         @Query("origin") origin: String,

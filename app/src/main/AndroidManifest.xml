@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name="com.gotranspo.tramtransit.TramTransitApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,33 +16,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DevTransportationApp"
         tools:targetApi="31">
-        <activity
-            android:name=".model.Second"
-            android:exported="false" />
-        <activity
-            android:name=".ui.SourceLocationScreen"
-            android:exported="false" />
-        <activity
-            android:name=".ui.SearchScreen"
-            android:exported="false" />
+
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDgoscMvIQhSCWPnoREpISJv-witpxH2N8" />
 
+
         <activity
-            android:name=".ui.HomeScreen"
-            android:exported="true"
-            android:label="@string/title_activity_home_screen">
+            android:name="com.gotranspo.tramtransit.MainActivity"
+            android:exported="true" >
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

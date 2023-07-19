@@ -1,4 +1,4 @@
-package com.example.devtransportationapp.remote
+package com.gotranspo.tramtransit.remote
 
 sealed class NetworkResult<T> {
     data class Loading<T>(val isLoading: Boolean) : NetworkResult<T>()
