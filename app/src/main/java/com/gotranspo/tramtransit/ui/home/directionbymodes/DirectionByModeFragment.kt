@@ -1,4 +1,4 @@
-package com.gotranspo.tramtransit.ui.home.direction
+package com.gotranspo.tramtransit.ui.home.directionbymodes
 
 import android.Manifest
 import android.app.Activity
@@ -16,10 +16,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.places.widget.Autocomplete
+import com.gotranspo.tramtransit.R
 import com.gotranspo.tramtransit.databinding.FragmentDirectionBinding
 import com.gotranspo.tramtransit.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +30,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class DirectionFragment : Fragment() {
+class DirectionByModeFragment : Fragment() {
     private var _binding : FragmentDirectionBinding? = null
     private val binding
     get() = _binding!!
@@ -37,6 +39,8 @@ class DirectionFragment : Fragment() {
     private var destLat: String? = null
     private var destLong: String? = null
     private val directionViewmodel: DirectionViewModel by viewModels()
+    private  var originLat : Double = 0.0
+    private var originLong  : Double = 0.0
 
     private val startAutocomplete =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -65,19 +69,19 @@ class DirectionFragment : Fragment() {
 
        destLat =  arguments?.getString("Latitude")
         destLong = arguments?.getString("Longitude")
-
-//        val bundle = this.arguments
-//        if (bundle != null) {
-//            Log.d(TAG, "onCreateView: " + destLat)
-//            destLat = bundle.getString("Latitude", "")
-//            destLong = bundle.getString("Longitude", "")
-//        }
-
-
-//        destLat = intent.getStringExtra("Latitude")
-//        destLong = intent.getStringExtra("Longitude")
         getDestinationAddress()
         checkPermission()
+
+        binding.autopaymentbtn.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("originLatitude", originLat.toString())
+            bundle.putString("originLongitude",originLong.toString())
+            bundle.putString("destLatitude", destLat)
+            bundle.putString("destLongitude",destLong)
+            findNavController().navigate(R.id.directionsDetailsFragment,bundle)
+
+        }
+
 
         return binding.root
     }
@@ -159,6 +163,9 @@ class DirectionFragment : Fragment() {
 
         fusedLocationClient!!.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
+
+                originLat = location.latitude
+                originLong = location.longitude
 
                 val origin = location.latitude.toString() + "," + location.longitude.toString()
                 val destination = destLat.toString() + "," + destLong.toString()

@@ -1,4 +1,4 @@
-package com.gotranspo.tramtransit.ui.home.direction
+package com.gotranspo.tramtransit.ui.home.directionbymodes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

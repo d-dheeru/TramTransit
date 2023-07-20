@@ -88,5 +88,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationui"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationui"
 
+    implementation 'com.github.jd-alexander:library:1.1.0'
+
+
+
 
 }
