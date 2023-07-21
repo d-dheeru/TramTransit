@@ -1,11 +1,15 @@
 package com.gotranspo.tramtransit.di
 
 
+import android.content.Context
+import com.gotranspo.tramtransit.db.AppDatabase
+import com.gotranspo.tramtransit.db.dao.AppDao
 import com.gotranspo.tramtransit.remote.api.ApiService
 import com.gotranspo.tramtransit.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,6 +21,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
     @Singleton
     @Provides
     fun provideOkHttp(): OkHttpClient {
@@ -45,6 +50,24 @@ object NetworkModule {
     @Provides
     fun provideApiClient(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    fun provideContext(
+        @ApplicationContext context: Context,
+    ): Context {
+        return context
+    }
+
+    @Provides
+    @Singleton
+    fun getAppDB(context : Context) : AppDatabase{
+        return AppDatabase.getAPpDB(context)
+    }
+    @Provides
+    @Singleton
+    fun getDao(appDB : AppDatabase) : AppDao{
+        return appDB.getDAO()
     }
 
 }

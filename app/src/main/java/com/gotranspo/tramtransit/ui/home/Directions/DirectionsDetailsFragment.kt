@@ -76,80 +76,12 @@ class DirectionsDetailsFragment : Fragment() , OnMapReadyCallback , GoogleApiCli
             .build()
         routing.execute()
 
-        // For driving
-//        directionViewmodel.getdirectionLists(
-//            origin, destination,
-//            Constants.DRIVING,
-//            Constants.API_KEY
-//
-//        )
-//        directionViewmodel.directionsData.observe(viewLifecycleOwner){
-//
-//            it.routes[0].legs[0].steps.forEachIndexed { index, step ->
-//                latLngList.add(LatLng(it.routes[0].legs[0].steps[index].start_location.lat,it.routes[0].legs[0].steps[index].start_location.lng))
-//                latLngList.add(LatLng(it.routes[0].legs[0].steps[index].end_location.lat,it.routes[0].legs[0].steps[index].end_location.lng))
-//
-//
-//            }
-//
-//            Log.d(TAG, "onCreateView: " + latLngList)
-//            polylineOption  = PolylineOptions().addAll(latLngList).clickable(
-//                true
-//            ).width(20f).color(R.color.red).jointType(JointType.ROUND).endCap(RoundCap())
-//            mMap.addPolyline(polylineOption!!)
-
-//            for (i in it.routes[0].legs[0].steps)
-//            {
-//                latLngList.add(LatLng(it.routes[0].legs[0].steps[i].end_location.lat,it.routes[0].legs[0].steps[i].end_location.lng))
-//
-//            }
-
-
-//        }
-
-//        polyline = mMap.addPolyline(polylineOption)
-
-
-
         return binding.root
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), com.gotranspo.tramtransit.R.raw.mapstyle_night));
-//        val origin = LatLng(originLat, originLong)
-//        val destination = LatLng(destLat, destLong)
-//        DrawRouteMaps.getInstance(requireContext())
-//            .draw(origin, destination, mMap)
-//        DrawMarker.getInstance(requireContext()).draw(mMap, origin, com.gotranspo.tramtransit.R.drawable.car, "Origin Location")
-//        DrawMarker.getInstance(requireContext())
-//            .draw(mMap, destination, com.gotranspo.tramtransit.R.drawable.car, "Destination Location")
-//
-//        val bounds = LatLngBounds.Builder()
-//            .include(origin)
-//            .include(destination).build()
-//        val windowManager = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
-//        val displaySize = Point()
-//        windowManager.getDefaultDisplay().getSize(displaySize);
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, displaySize.x, 250, 30))
-
-//
-//        googleMap.animateCamera(
-//            CameraUpdateFactory.newLatLngZoom(
-//                LatLng(
-//                    originLat,
-//                    originLong
-//                ), 15.0f
-//            )
-//        )
-//
-//        mMap.addMarker(
-//            MarkerOptions().position(LatLng(
-//                originLat,
-//                originLong
-//            )).title("Your Current Location")
-//
-//        )
 
     }
 
@@ -172,11 +104,9 @@ class DirectionsDetailsFragment : Fragment() , OnMapReadyCallback , GoogleApiCli
         var polylineStartLatLng: LatLng? = null
         var polylineEndLatLng: LatLng? = null
         polylines = ArrayList()
-        //add route(s) to the map using polyline
-        //add route(s) to the map using polyline
+
         for (i in 0 until route!!.size) {
             if (i == shortestRouteIndex) {
-//                polyOptions.color(resources.getColor(Color.Black))
                 polyOptions.width(7f)
                 polyOptions.addAll(route!![shortestRouteIndex].points)
                 val polyline = mMap.addPolyline(polyOptions)
@@ -189,16 +119,11 @@ class DirectionsDetailsFragment : Fragment() , OnMapReadyCallback , GoogleApiCli
             }
 
         }
-        //Add Marker on route starting position
-        //Add Marker on route starting position
+
         val startMarker = MarkerOptions()
         startMarker.position(polylineStartLatLng!!)
         startMarker.title("My Location")
         mMap.addMarker(startMarker)
-
-        //Add Marker on route ending position
-
-        //Add Marker on route ending position
         val endMarker = MarkerOptions()
         endMarker.position(polylineEndLatLng!!)
         endMarker.title("Destination")

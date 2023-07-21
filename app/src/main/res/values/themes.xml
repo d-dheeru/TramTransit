@@ -13,4 +13,14 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.ImageView.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- You can adjust the corner radius here -->
+    </style>
+
+    <style name="CustomAutocompletePlaceActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Change the background color to your desired color -->
+        <item name="android:windowBackground">@color/gray</item>
+    </style>
 </resources>

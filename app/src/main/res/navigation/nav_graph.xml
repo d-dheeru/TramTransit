@@ -11,7 +11,7 @@
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/directionFragment"
-        android:name="com.gotranspo.tramtransit.ui.home.directionbymodes.DirectionByModeFragment"
+        android:name="com.gotranspo.tramtransit.ui.home.directionbymodes.DirectionsFragment"
         android:label="DirectionFragment" />
     <fragment
         android:id="@+id/searchFragment"
