@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DevTransportationApp</string>
+    <string name="app_name">Tram Transit</string>
     <string name="title_activity_home_screen">HomeScreen</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

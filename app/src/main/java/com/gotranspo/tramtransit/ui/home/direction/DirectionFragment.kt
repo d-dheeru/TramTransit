@@ -16,7 +16,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.places.widget.Autocomplete
@@ -24,14 +23,14 @@ import com.gotranspo.tramtransit.databinding.FragmentDirectionBinding
 import com.gotranspo.tramtransit.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
-import java.util.*
+import java.util.Locale
 
 
 @AndroidEntryPoint
 class DirectionFragment : Fragment() {
-    private var _binding : FragmentDirectionBinding? = null
+    private var _binding: FragmentDirectionBinding? = null
     private val binding
-    get() = _binding!!
+        get() = _binding!!
     private val TAG = "DirectionsFragment"
     private var fusedLocationClient: FusedLocationProviderClient? = null
     private var destLat: String? = null
@@ -39,7 +38,9 @@ class DirectionFragment : Fragment() {
     private val directionViewmodel: DirectionViewModel by viewModels()
 
     private val startAutocomplete =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val intent = result.data
                 if (intent != null) {
@@ -58,12 +59,12 @@ class DirectionFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding  = FragmentDirectionBinding.inflate(layoutInflater)
+    ): View {
+        _binding = FragmentDirectionBinding.inflate(layoutInflater)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-       destLat =  arguments?.getString("Latitude")
+        destLat = arguments?.getString("Latitude")
         destLong = arguments?.getString("Longitude")
 
 //        val bundle = this.arguments
@@ -106,7 +107,7 @@ class DirectionFragment : Fragment() {
                 sb.append(address.adminArea).append(", ")
                 sb.append(address.countryName).append(", ")
                 addressString = sb.toString()
-                binding!!.editText2.text = addressString
+                binding.editText2.text = addressString
 
             }
         } catch (e: IOException) {
@@ -114,8 +115,8 @@ class DirectionFragment : Fragment() {
                 .show()
         }
     }
-    fun checkPermission()
-    {
+
+    fun checkPermission() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -173,8 +174,8 @@ class DirectionFragment : Fragment() {
                 directionViewmodel.directionsData.observe(viewLifecycleOwner) {
 
 
-                        binding!!.drivingdistance.text = it.routes[0].legs[0].distance.text
-                        binding!!.drivingtiming.text = it.routes[0].legs[0].duration.text
+                    binding.drivingdistance.text = it.routes[0].legs[0].distance.text
+                    binding.drivingtiming.text = it.routes[0].legs[0].duration.text
 
 
                 }
@@ -186,8 +187,8 @@ class DirectionFragment : Fragment() {
 
                 )
                 directionViewmodel.directionsData.observe(viewLifecycleOwner) {
-                    binding!!.walkingdistance.text = it.routes[0].legs[0].distance.text
-                    binding!!.walkingtiming.text = it.routes[0].legs[0].duration.text
+                    binding.walkingdistance.text = it.routes[0].legs[0].distance.text
+                    binding.walkingtiming.text = it.routes[0].legs[0].duration.text
                 }
 
                 // for transit
@@ -198,8 +199,8 @@ class DirectionFragment : Fragment() {
 
                 )
                 directionViewmodel.directionsData.observe(viewLifecycleOwner) {
-                    binding!!.transitdistance.text = it.routes[0].legs[0].distance.text
-                    binding!!.transittiming.text = it.routes[0].legs[0].duration.text
+                    binding.transitdistance.text = it.routes[0].legs[0].distance.text
+                    binding.transittiming.text = it.routes[0].legs[0].duration.text
                 }
             }
 

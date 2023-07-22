@@ -1,4 +1,4 @@
-package com.gotranspo.tramtransit.ui.home.Search
+package com.gotranspo.tramtransit.ui.home.search
 
 
 import android.app.Activity
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
-    private var _binding : FragmentSearchBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding
         get() = _binding!!
 
@@ -38,9 +38,9 @@ class SearchFragment : Fragment() {
 
                     val place = Autocomplete.getPlaceFromIntent(intent)
                     val bundle = Bundle()
-                    bundle.putString("Latitude", place.latLng.latitude.toString() )
-                    bundle.putString("Longitude", place.latLng.longitude.toString() )
-                    findNavController().navigate(R.id.directionFragment,bundle)
+                    bundle.putString("Latitude", place.latLng.latitude.toString())
+                    bundle.putString("Longitude", place.latLng.longitude.toString())
+                    findNavController().navigate(R.id.directionFragment, bundle)
 
 
                 }
@@ -54,14 +54,15 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding  = FragmentSearchBinding.inflate(layoutInflater)
+    ): View {
+        _binding = FragmentSearchBinding.inflate(layoutInflater)
         Places.initialize(requireContext(), Constants.API_KEY)
         val fields = listOf(
             Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS,
-            Place.Field.ADDRESS_COMPONENTS)
+            Place.Field.ADDRESS_COMPONENTS
+        )
 
-        binding!!.tvSearchPlaces.setOnClickListener {
+        binding.tvSearchPlaces.setOnClickListener {
             val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
                 .build(requireContext())
             startAutocomplete.launch(intent)

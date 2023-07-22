@@ -4,13 +4,12 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,24 +26,24 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() , OnMapReadyCallback {
-    private var  _binding : FragmentHomeBinding? = null
+class HomeFragment : Fragment(), OnMapReadyCallback {
+    private var _binding: FragmentHomeBinding? = null
     private val binding
-    get() = _binding!!
+        get() = _binding!!
     private lateinit var mMap: GoogleMap
     private var fusedLocationClient: FusedLocationProviderClient? = null
     private val TAG = "HomeFragment"
-    private val REQUEST_CODE  = 101
+    private val REQUEST_CODE = 101
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         BottomSheetBehavior.from(binding.sheet).apply {
             peekHeight = 20
             this.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -62,7 +61,12 @@ class HomeFragment : Fragment() , OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.mapstyle_night));
+        mMap.setMapStyle(
+            MapStyleOptions.loadRawResourceStyle(
+                requireContext(),
+                R.raw.mapstyle_night
+            )
+        )
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -87,24 +91,28 @@ class HomeFragment : Fragment() , OnMapReadyCallback {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             requestPermision()
-        }
-        else
-        {
+        } else {
             getCurrentLocation()
         }
 
     }
 
     private fun requestPermision() {
-        ActivityCompat.requestPermissions(requireActivity() , arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),REQUEST_CODE)
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
+            REQUEST_CODE
+        )
 
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE)
-        {
+        if (requestCode == REQUEST_CODE) {
             getCurrentLocation()
         }
     }

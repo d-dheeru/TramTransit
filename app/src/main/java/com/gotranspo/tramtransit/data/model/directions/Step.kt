@@ -1,4 +1,7 @@
-package com.example.devtransportationapp.model.directions
+package com.gotranspo.tramtransit.data.model.directions
+
+import com.gotranspo.tramtransit.data.model.directions.Distance
+import com.gotranspo.tramtransit.data.model.directions.Polyline
 
 data class Step(
     val distance: Distance,

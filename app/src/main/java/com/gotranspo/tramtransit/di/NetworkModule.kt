@@ -21,7 +21,7 @@ object NetworkModule {
     @Provides
     fun provideOkHttp(): OkHttpClient {
         return OkHttpClient.Builder().apply {
-                this.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            this.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         }.build()
     }
 
@@ -32,6 +32,7 @@ object NetworkModule {
             this.level = HttpLoggingInterceptor.Level.BODY
         }
     }
+
     @Provides
     @Singleton
 
@@ -42,6 +43,7 @@ object NetworkModule {
             .client(okHttpClient)
             .build()
     }
+
     @Provides
     fun provideApiClient(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)

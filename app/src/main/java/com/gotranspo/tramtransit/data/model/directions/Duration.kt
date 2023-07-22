@@ -1,4 +1,4 @@
-package com.example.devtransportationapp.model.directions
+package com.gotranspo.tramtransit.data.model.directions
 
 data class Duration(
     val text: String,

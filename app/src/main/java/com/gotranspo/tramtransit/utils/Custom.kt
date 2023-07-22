@@ -7,11 +7,10 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
 
-class Custom(private val context : Context ) {
+class Custom(private val context: Context) {
 
-    fun getCurrentLocation(fusedLocationProviderClient : FusedLocationProviderClient) : LatLng
-    {
-        var latLng=LatLng(0.0,0.0)
+    fun getCurrentLocation(fusedLocationProviderClient: FusedLocationProviderClient): LatLng {
+        var latLng = LatLng(0.0, 0.0)
         if (ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -24,15 +23,14 @@ class Custom(private val context : Context ) {
 
         }
         fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-            it?.let { location->
-            latLng = LatLng(location.latitude,location.longitude)
+            it?.let { location ->
+                latLng = LatLng(location.latitude, location.longitude)
             }
 
         }
         return latLng
 
-        }
-
+    }
 
 
 }

@@ -1,4 +1,8 @@
-package com.example.devtransportationapp.model.directions
+package com.gotranspo.tramtransit.data.model.directions
+
+import com.gotranspo.tramtransit.data.model.directions.Bounds
+import com.gotranspo.tramtransit.data.model.directions.Leg
+import com.gotranspo.tramtransit.data.model.directions.OverviewPolyline
 
 data class Route(
     val bounds: Bounds,
