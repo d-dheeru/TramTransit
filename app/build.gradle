@@ -1,8 +1,13 @@
 plugins {
+    // Android application plugin
     id 'com.android.application'
+    // Kotlin plugin for Android
     id 'org.jetbrains.kotlin.android'
+    // Plugin to access API keys stored in secrets.properties
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    // Kotlin annotation processing tool (required for Hilt)
     id 'kotlin-kapt'
+    // Dependency injection with Hilt
     id 'com.google.dagger.hilt.android'
 }
 
@@ -17,76 +22,104 @@ android {
         versionCode 1
         versionName "1.0"
 
+        // Instrumentation runner for tests
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            // Enable Proguard for code shrinking and obfuscation
             minifyEnabled false
+            // Proguard rules for release build
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug{
+        debug {
+            // Disable Proguard for debug build
             minifyEnabled false
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = '17'
     }
+
     buildFeatures {
+        // Enable view binding feature
         viewBinding true
+        // Enable data binding feature
+        dataBinding true
     }
-    viewBinding {
-        enabled = true
-    }
+
     kapt {
+        // Correct error types during annotation processing
         correctErrorTypes true
     }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    // Dependencies versions
+    def versions = [
+            coreKtx: '1.10.1',
+            appCompat: '1.6.1',
+            material: '1.9.0',
+            constraintLayout: '2.1.4',
+            playServicesMaps: '18.1.0',
+            playServicesLocation: '21.0.1',
+            places: '3.2.0',
+            firebaseCrashlytics: '2.9.7',
+            retrofit: '2.9.0',
+            okhttp: '4.9.3',
+            daggerHilt: '2.44',
+            coroutines: '1.6.4',
+            activityKtx: '1.7.2',
+            fragmentKtx: '1.6.0',
+            lifecycleKtx: '2.6.1',
+            navigationCompose: '2.6.0',
+            navigation: '2.5.1'
+    ]
+
+    // AndroidX Dependencies
+    implementation "androidx.core:core-ktx:${versions.coreKtx}"
+    implementation "androidx.appcompat:appcompat:${versions.appCompat}"
+    implementation "com.google.android.material:material:${versions.material}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+
+    // Google Play Services Dependencies
     //noinspection GradleCompatible
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
-    implementation 'com.google.android.libraries.places:places:3.2.0'
-    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.6'
+    implementation "com.google.android.gms:play-services-maps:${versions.playServicesMaps}"
+    implementation "com.google.android.gms:play-services-location:${versions.playServicesLocation}"
+    implementation "com.google.android.libraries.places:places:${versions.places}"
+    implementation "com.google.firebase:firebase-crashlytics-buildtools:${versions.firebaseCrashlytics}"
+
+    // Unit testing dependencies
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:${versions.retrofit}")
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
 
-    // retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    // Dagger Hilt
+    implementation("com.google.dagger:hilt-android:${versions.daggerHilt}")
+    kapt "com.google.dagger:hilt-android-compiler:${versions.daggerHilt}"
 
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
-    def hilt = '2.44'
-    implementation("com.google.dagger:hilt-android:$hilt")
-    kapt "com.google.dagger:hilt-android-compiler:$hilt"
-    //coroutines
-    def coroutine = '1.5.2'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine"
-    //ktx
-    implementation "androidx.activity:activity-ktx:1.4.0"
-    implementation "androidx.fragment:fragment-ktx:1.4.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
-    implementation "androidx.navigation:navigation-compose:2.5.0"
+    // AndroidX KTX
+    implementation "androidx.activity:activity-ktx:${versions.activityKtx}"
+    implementation "androidx.fragment:fragment-ktx:${versions.fragmentKtx}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycleKtx}"
 
-
-    // Navigation component
-    def navigationui = '2.5.1'
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationui"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationui"
-
-
+    // Navigation Component
+    implementation "androidx.navigation:navigation-compose:${versions.navigationCompose}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
+    implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
 }
