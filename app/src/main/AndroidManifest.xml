@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions required for the app -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,21 +18,19 @@
         android:theme="@style/Theme.TramTransit"
         tools:targetApi="31">
 
-
-
+        <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDgoscMvIQhSCWPnoREpISJv-witpxH2N8" />
 
-
+        <!-- Main Activity of the app -->
         <activity
             android:name="com.gotranspo.tramtransit.MainActivity"
-            android:exported="true" >
+            android:exported="true">
 
-
+            <!-- Intent filter for the main activity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
