@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -66,8 +67,13 @@ class DirectionsFragment : Fragment() {
                         longitude = place.latLng.longitude
                     }
                     roomViewModel.insertRecord(destinationEnitity)
-
-
+                    Log.d(TAG, ":  $originLong , $originLat , $destLat ,  $destLong" )
+                    val bundle = Bundle()
+                    bundle.putString("originLatitude",originLat.toString())
+                    bundle.putString("originLongitude",originLong.toString())
+                    bundle.putString("destLatitude",destLat.toString())
+                    bundle.putString("destLongitude",destLong.toString())
+                    findNavController().navigate(R.id.directionsDetailsFragment,bundle)
 
 
 //                    updateLocation(place.latLng.latitude, place.latLng.longitude)
@@ -95,7 +101,19 @@ class DirectionsFragment : Fragment() {
         roomViewModel.allDestinations.observe(viewLifecycleOwner){
             if (it.size  >= 1)
             {
-                val adapter = RecentAdapter(it)
+                val adapter = RecentAdapter(it , object  : RecentAdapter.OnClickListener{
+                    override fun onClick(position: Int) {
+                        destLat = it[position].latitude
+                        destLong = it[position].longitude
+                        val bundle = Bundle()
+                        bundle.putString("originLatitude",originLat.toString())
+                        bundle.putString("originLongitude",originLong.toString())
+                        bundle.putString("destLatitude",destLat.toString())
+                        bundle.putString("destLongitude",destLong.toString())
+                        findNavController().navigate(R.id.directionsDetailsFragment,bundle)
+                    }
+
+                })
                 binding.recyclerview.adapter = adapter
                 binding.recyclerview.visibility = View.VISIBLE
                 binding.recentsearches.visibility = View.GONE

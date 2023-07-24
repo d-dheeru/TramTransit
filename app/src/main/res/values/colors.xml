@@ -12,6 +12,9 @@
     <color name="red">#F60303</color>
     <color name="light_blue">#ADD8E6</color>
     <color name="medium_black">#2C2A2A</color>
+    <color name="blue">#32B1EA</color>
+    <color name="yellow">#F4DC05</color>
+    <color name="green">#00FB0A</color>
 
 
 </resources>

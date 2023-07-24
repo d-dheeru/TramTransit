@@ -94,6 +94,10 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.0-alpha02'
     kapt 'androidx.room:room-compiler:2.4.0-alpha02'
 
+    // Circular IageView
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 
 

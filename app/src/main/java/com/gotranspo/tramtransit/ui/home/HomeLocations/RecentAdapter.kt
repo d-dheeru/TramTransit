@@ -8,7 +8,12 @@ import com.google.android.material.textview.MaterialTextView
 import com.gotranspo.tramtransit.R
 import com.gotranspo.tramtransit.db.entities.DestinationEnitity
 
-class RecentAdapter(private val destinations: List<DestinationEnitity>) : RecyclerView.Adapter<RecentAdapter.ViewHolder>() {
+class RecentAdapter(val destinations: List<DestinationEnitity> , val listener : RecentAdapter.OnClickListener  ) : RecyclerView.Adapter<RecentAdapter.ViewHolder>() {
+
+    interface OnClickListener {
+        fun onClick(position: Int)
+    }
+
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val recentTextView: MaterialTextView = itemView.findViewById(R.id.recentsearches)
@@ -29,6 +34,9 @@ class RecentAdapter(private val destinations: List<DestinationEnitity>) : Recycl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.recentTextView.text = destinations[position].address
+        holder.itemView.setOnClickListener {
+            listener.onClick(position)
+        }
 
     }
 }
