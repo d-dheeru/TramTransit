@@ -3,4 +3,15 @@
     <string name="title_activity_home_screen">HomeScreen</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="close_button">close button</string>
+    <string name="choose_product">Choose your product</string>
+    <string name="Product_final_total">Final total:</string>
+    <string name="item_name">Item name</string>
+    <string name="item_size">item size</string>
+    <string name="image_content_description">Image Content Description</string>
+    <string name="left_image_content_description">reduce item count</string>
+    <string name="right_image_content_description">increase item count</string>
+    <string name="each_item_count">0</string>
+    <string name="default_amount">$ 0,00</string>
+    <string name="default_count">0</string>
 </resources>

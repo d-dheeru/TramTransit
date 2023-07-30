@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gotranspo.tramtransit.R
 import com.gotranspo.tramtransit.databinding.FragmentHomeBinding
+import com.gotranspo.tramtransit.ui.products.SelectProductPopupFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -54,13 +56,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 //            val intent = Intent(this, SearchScreen::class.java)
 //            startActivity(intent)
         }
-
-
         return binding.root
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        val popupFragment = SelectProductPopupFragment()
+        popupFragment.show(childFragmentManager, "SelectProductPopupFragment")
+
         mMap.setMapStyle(
             MapStyleOptions.loadRawResourceStyle(
                 requireContext(),
@@ -79,6 +83,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
         mMap.isMyLocationEnabled = true
         checkPermision()
+
     }
 
     private fun checkPermision() {
@@ -148,6 +153,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
 
         }
+
     }
 
 }
