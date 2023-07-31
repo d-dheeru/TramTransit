@@ -6,21 +6,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.gotranspo.tramtransit.ui.products.ProductFirstFragment
 
+const val TAB_POSITION_TAB1 = 0
+const val TAB_POSITION_TAB2 = 1
+const val TAB_POSITION_TAB3 = 2
+
 class SelectProductPopupPagerAdapter(
     fm: FragmentManager,
     lifeCycle: Lifecycle
 ) : FragmentStateAdapter(fm, lifeCycle) {
 
-    companion object {
-        const val TAB_POSITION_TAB1 = 0
-        const val TAB_POSITION_TAB2 = 1
-        const val TAB_POSITION_TAB3 = 2
-    }
-
     private val tabFragmentCreator: Map<Int, () -> Fragment> = mapOf(
         TAB_POSITION_TAB1 to { ProductFirstFragment() },
-        TAB_POSITION_TAB2 to { ProductFirstFragment() },
-        TAB_POSITION_TAB3 to { ProductFirstFragment() },
+        TAB_POSITION_TAB2 to { Fragment() },
+        TAB_POSITION_TAB3 to { Fragment() },
     )
 
     override fun getItemCount(): Int {
@@ -35,6 +33,6 @@ class SelectProductPopupPagerAdapter(
 //        }
 
         return tabFragmentCreator[position]?.invoke()
-            ?: throw java.lang.IllegalArgumentException("Invalid tab position")
+            ?: throw IllegalArgumentException("Invalid tab position")
     }
 }

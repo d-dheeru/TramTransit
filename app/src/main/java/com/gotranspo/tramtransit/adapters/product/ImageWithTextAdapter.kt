@@ -1,5 +1,3 @@
-package com.gotranspo.tramtransit.adapters.product
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +5,7 @@ import com.gotranspo.tramtransit.R
 import com.gotranspo.tramtransit.data.model.directions.product.ProductItemData
 import com.gotranspo.tramtransit.databinding.ProductItemImageDescriptionBinding
 
-class ImageWithTextAdapter(private val items: List<ProductItemData>) :
+class ImageWithTextAdapter(private var items: List<ProductItemData>) :
     RecyclerView.Adapter<ImageWithTextAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: ProductItemImageDescriptionBinding) :
@@ -19,7 +17,6 @@ class ImageWithTextAdapter(private val items: List<ProductItemData>) :
             R.drawable.car,
             // Add more image resource IDs as needed
         )
-
 
         fun bind(itemData: ProductItemData) {
             binding.imageView.setImageResource(itemData.imageId)
@@ -53,4 +50,9 @@ class ImageWithTextAdapter(private val items: List<ProductItemData>) :
         return items.size
     }
 
+    // New method to update the list of items
+    fun setItems(newItems: List<ProductItemData>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
 }
