@@ -9,14 +9,18 @@ class CenterZoomLayoutManager(
     reverseLayout: Boolean = false
 ) : LinearLayoutManager(context, orientation, reverseLayout) {
 
-    private val shrinkAmount = 0.15f
-    private val shrinkDistance = 0.9f
+    private val shrinkAmount = 0.1f
+    private val shrinkDistance = 1.9f
 
     override fun scrollHorizontallyBy(
         dx: Int,
         recycler: RecyclerView.Recycler?,
         state: RecyclerView.State?
     ): Int {
+        // TODO: A small jerk at the start with the animation
+        if (true) {
+            return super.scrollHorizontallyBy(dx, recycler, state)
+        }
         if (orientation == HORIZONTAL) {
             val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
             val midpoint = width / 2.0f
@@ -66,20 +70,20 @@ class CenterZoomLayoutManager(
         }
     }
 
-    override fun smoothScrollToPosition(
-        recyclerView: RecyclerView,
-        state: RecyclerView.State?,
-        position: Int
-    ) {
-        val smoothScroller =
-            object : androidx.recyclerview.widget.LinearSmoothScroller(recyclerView.context) {
-                override fun getHorizontalSnapPreference(): Int {
-                    return androidx.recyclerview.widget.LinearSmoothScroller.SNAP_TO_START
-                }
-            }
-        smoothScroller.targetPosition = position
-        startSmoothScroll(smoothScroller)
-    }
+//    override fun smoothScrollToPosition(
+//        recyclerView: RecyclerView,
+//        state: RecyclerView.State?,
+//        position: Int
+//    ) {
+//        val smoothScroller =
+//            object : androidx.recyclerview.widget.LinearSmoothScroller(recyclerView.context) {
+//                override fun getHorizontalSnapPreference(): Int {
+//                    return androidx.recyclerview.widget.LinearSmoothScroller.SNAP_TO_START
+//                }
+//            }
+//        smoothScroller.targetPosition = position
+//        startSmoothScroll(smoothScroller)
+//    }
 
     companion object {
         const val HORIZONTAL = RecyclerView.HORIZONTAL
