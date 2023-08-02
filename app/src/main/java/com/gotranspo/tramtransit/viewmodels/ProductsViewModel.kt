@@ -9,12 +9,11 @@ import com.gotranspo.tramtransit.data.model.directions.product.ProductItemData
 import com.gotranspo.tramtransit.remote.NetworkResult
 import com.gotranspo.tramtransit.remote.ProductsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductFirstViewModel @Inject constructor(
+class ProductsViewModel @Inject constructor(
     private val productsRepo: ProductsRepo
 ): ViewModel() {
 

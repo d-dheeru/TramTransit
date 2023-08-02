@@ -11,23 +11,23 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gotranspo.tramtransit.adapters.product.ImageWithTextAdapter
 import com.gotranspo.tramtransit.data.model.directions.product.ProductItemData
-import com.gotranspo.tramtransit.databinding.FragmentProductFirstBinding
+import com.gotranspo.tramtransit.databinding.FragmentProductsBinding
 import com.gotranspo.tramtransit.utils.NumberUtils
-import com.gotranspo.tramtransit.viewmodels.ProductFirstViewModel
+import com.gotranspo.tramtransit.viewmodels.ProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProductFirstFragment : Fragment() {
+class ProductsFragment(position: Int) : Fragment() {
 
-    private lateinit var binding: FragmentProductFirstBinding
-    private val viewModel: ProductFirstViewModel by viewModels()
+    private lateinit var binding: FragmentProductsBinding
+    private val viewModel: ProductsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentProductFirstBinding.inflate(
+        binding = FragmentProductsBinding.inflate(
             inflater,
             container,
             false
@@ -70,9 +70,11 @@ class ProductFirstFragment : Fragment() {
         override fun onLeftImageClick(item: ProductItemData, itemAddedCount: Int) {
             setTotalCostText(item, itemAddedCount)
         }
+
         override fun onRightImageClick(item: ProductItemData, itemAddedCount: Int) {
             setTotalCostText(item, itemAddedCount)
         }
+
         private fun setTotalCostText(item: ProductItemData, itemAddedCount: Int) {
             eachItemTotalCost[item.productGuid.toString()] = (itemAddedCount * item.itemCost)
             val sum = eachItemTotalCost.values.sum()

@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.gotranspo.tramtransit.ui.products.ProductFirstFragment
+import com.gotranspo.tramtransit.ui.products.ProductsFragment
 
 const val TAB_POSITION_TAB1 = 0
 const val TAB_POSITION_TAB2 = 1
@@ -15,14 +15,14 @@ class SelectProductPopupPagerAdapter(
     lifeCycle: Lifecycle
 ) : FragmentStateAdapter(fm, lifeCycle) {
 
-    private val tabFragmentCreator: Map<Int, () -> Fragment> = mapOf(
-        TAB_POSITION_TAB1 to { ProductFirstFragment() },
-        TAB_POSITION_TAB2 to { Fragment() },
-        TAB_POSITION_TAB3 to { Fragment() },
-    )
+//    private val tabFragmentCreator: Map<Int, () -> Fragment> = mapOf(
+//        TAB_POSITION_TAB1 to { ProductFirstFragment(position) },
+//        TAB_POSITION_TAB2 to { Fragment() },
+//        TAB_POSITION_TAB3 to { Fragment() },
+//    )
 
     override fun getItemCount(): Int {
-        return tabFragmentCreator.size
+        return NUM_PAGES
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -32,7 +32,13 @@ class SelectProductPopupPagerAdapter(
 //            else -> throw IllegalArgumentException("Invalid tab position")
 //        }
 
-        return tabFragmentCreator[position]?.invoke()
-            ?: throw IllegalArgumentException("Invalid tab position")
+//        return tabFragmentCreator[position]?.invoke()
+//            ?: throw IllegalArgumentException("Invalid tab position")
+
+        return ProductsFragment(position)
+    }
+
+    companion object {
+        private const val NUM_PAGES = 3 // The number of pages you have in ViewPager
     }
 }

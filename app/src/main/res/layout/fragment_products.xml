@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.gotranspo.tramtransit.viewmodels.ProductFirstViewModel" />
+            type="com.gotranspo.tramtransit.viewmodels.ProductsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

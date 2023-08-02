@@ -43,14 +43,11 @@ class SelectProductPopupFragment : DialogFragment() {
 
     private fun setUpTabLayoutMediator() {
         TabLayoutMediator(binding.tabLayout, binding.productsViewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> "Coffee"
-                1 -> "Meal"
-                else -> "Other"
-            }
+            tab.text = getTabTitle(position)
         }.attach()
     }
 
+    // TODO: Use this when proper icons are available
     private fun getTabIcon(position: Int): Int {
         return when (position) {
             TAB_POSITION_TAB1 -> R.drawable.coffee_tab_selector
@@ -63,8 +60,8 @@ class SelectProductPopupFragment : DialogFragment() {
     private fun getTabTitle(position: Int): String? {
         return when (position) {
             TAB_POSITION_TAB1 -> "COFFEE"
-            TAB_POSITION_TAB2 -> "BURGERS"
-            TAB_POSITION_TAB3 -> "OTHERS"
+            TAB_POSITION_TAB2 -> "MEAL"
+            TAB_POSITION_TAB3 -> "OTHER"
             else -> null
         }
     }
