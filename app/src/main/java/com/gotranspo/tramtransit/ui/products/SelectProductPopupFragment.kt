@@ -12,8 +12,9 @@ import com.gotranspo.tramtransit.R
 import com.gotranspo.tramtransit.adapters.product.SelectProductPopupPagerAdapter
 import com.gotranspo.tramtransit.adapters.product.TAB_POSITION_TAB1
 import com.gotranspo.tramtransit.adapters.product.TAB_POSITION_TAB2
-import com.gotranspo.tramtransit.adapters.product.TAB_POSITION_TAB3
+import com.gotranspo.tramtransit.data.model.directions.product.ProductItemData
 import com.gotranspo.tramtransit.databinding.FragmentSelectProductPopupBinding
+import com.gotranspo.tramtransit.utils.NumberUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +38,9 @@ class SelectProductPopupFragment : DialogFragment() {
     }
 
     private fun setupViewPager() {
-        val adapter = SelectProductPopupPagerAdapter(childFragmentManager, lifecycle)
+        val finalTotalListener = FinalTotalListener()
+        val adapter =
+            SelectProductPopupPagerAdapter(childFragmentManager, lifecycle, finalTotalListener)
         binding.productsViewPager.adapter = adapter
     }
 
@@ -52,8 +55,7 @@ class SelectProductPopupFragment : DialogFragment() {
         return when (position) {
             TAB_POSITION_TAB1 -> R.drawable.coffee_tab_selector
             TAB_POSITION_TAB2 -> R.drawable.meals_tab_selector
-            TAB_POSITION_TAB3 -> R.drawable.coffee_tab_selector
-            else -> throw IndexOutOfBoundsException()
+            else -> R.drawable.coffee_tab_selector
         }
     }
 
@@ -61,8 +63,7 @@ class SelectProductPopupFragment : DialogFragment() {
         return when (position) {
             TAB_POSITION_TAB1 -> "COFFEE"
             TAB_POSITION_TAB2 -> "MEAL"
-            TAB_POSITION_TAB3 -> "OTHER"
-            else -> null
+            else -> "Drink"
         }
     }
 
@@ -70,6 +71,45 @@ class SelectProductPopupFragment : DialogFragment() {
     init {
 //        ProductFirstFragment()
     }
+
+    private inner class FinalTotalListener : ProductsFragment.FinalTotalListener {
+        var coffeeItemTotalCost = mutableMapOf<String, Double>()
+        var mealItemTotalCost = mutableMapOf<String, Double>()
+        var coolDrinkItemTotalCost = mutableMapOf<String, Double>()
+
+        override fun finalTotal(
+            item: ProductItemData,
+            sum: Double
+        ) {
+
+            when (item.itemType.lowercase()) {
+                "coffee" -> {
+                    coffeeItemTotalCost[item.productGuid] = sum
+                }
+
+                "meal" -> {
+                    mealItemTotalCost[item.productGuid] = sum
+                }
+
+                else -> {
+                    coolDrinkItemTotalCost[item.productGuid] = sum
+                }
+
+            }
+
+            val finalTotal =
+                coffeeItemTotalCost.values.sum() + mealItemTotalCost.values.sum() + coolDrinkItemTotalCost.values.sum()
+
+            "${item.currency} ${NumberUtils.formatNumberWithLocale(finalTotal)}".also {
+                binding.finalAmountValue.text = it
+            }
+        }
+
+    }
+
+//    override fun finalTotal(value: Double) {
+//        binding.finalAmountText.text = value.toString()
+//    }
     //    override fun onActivityCreated(savedInstanceState: Bundle?) {
 //        super.onActivityCreated(savedInstanceState)
 //        viewModel = ViewModelProvider(this).get(SelectProductPopupViewModel::class.java)

@@ -12,7 +12,8 @@ const val TAB_POSITION_TAB3 = 2
 
 class SelectProductPopupPagerAdapter(
     fm: FragmentManager,
-    lifeCycle: Lifecycle
+    lifeCycle: Lifecycle,
+    private val finalTotalListener: ProductsFragment.FinalTotalListener
 ) : FragmentStateAdapter(fm, lifeCycle) {
 
 //    private val tabFragmentCreator: Map<Int, () -> Fragment> = mapOf(
@@ -35,7 +36,7 @@ class SelectProductPopupPagerAdapter(
 //        return tabFragmentCreator[position]?.invoke()
 //            ?: throw IllegalArgumentException("Invalid tab position")
 
-        return ProductsFragment(position)
+        return ProductsFragment(position, finalTotalListener)
     }
 
     companion object {

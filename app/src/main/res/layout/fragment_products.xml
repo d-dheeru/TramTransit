@@ -22,7 +22,7 @@
             app:layout_constraintBottom_toTopOf="@id/separatorLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
             tools:context="com.gotranspo.tramtransit.ui.products.SelectProductPopupFragment" />
 
         <!-- Separator Line -->

@@ -26,17 +26,17 @@ class ProductsViewModel @Inject constructor(
         _productItemsLiveData.value = productItems
     }
 
-    fun getProducts(){
+    fun getProducts(position: Int) {
         viewModelScope.launch {
 
-            productsRepo.getProducts().collect{
+            productsRepo.getProducts(position).collect{
                 when(it){
                     is NetworkResult.Loading -> {
                         Log.d("ProductFirstVM", "IS LOADING")
                     }
 
                     is NetworkResult.Success -> {
-                        _productItemsLiveData.postValue(it.data!!)
+                        _productItemsLiveData.postValue(it.data!! as List<ProductItemData>?)
                     }
 
                     is NetworkResult.Failure -> {
