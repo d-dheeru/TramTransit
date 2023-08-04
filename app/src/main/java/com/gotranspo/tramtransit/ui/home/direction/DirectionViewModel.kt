@@ -32,7 +32,7 @@ class DirectionViewModel @Inject constructor(private val directionRepo: Directio
                     }
 
                     is NetworkResult.Success -> {
-                        _directionsData.postValue(it.data)
+                        _directionsData.postValue(it.data!!)
 
                     }
 
