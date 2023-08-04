@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/medium_black"
-    tools:context=".ui.SearchScreen">
-
-
+    tools:context="com.gotranspo.tramtransit.ui.home.search.SearchFragment">
 
     <LinearLayout
 
@@ -106,7 +104,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:listitem="@layout/favourites_card" />
 
 
